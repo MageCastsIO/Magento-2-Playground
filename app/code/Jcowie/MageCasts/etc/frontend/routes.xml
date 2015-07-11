@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/App/etc/routes.xsd">
+    <router id="standard">
+        <route id="jcowie_magecasts" frontName="magecasts">
+            <module name="Jcowie_MageCasts" />
+        </route>
+    </router>
+</config>
