@@ -19,6 +19,8 @@ class Index extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
+        $pages = $this->cmsPages->getAllPages();
+
         $this->getResponse()->setHeader('content-type', 'text/plain');
         $this->getResponse()->appendBody('Hello CMS');
     }
