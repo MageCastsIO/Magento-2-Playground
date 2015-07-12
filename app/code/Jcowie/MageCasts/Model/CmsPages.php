@@ -11,6 +11,7 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\Result\Raw;
 
+
 class CmsPages
 {
     /**
@@ -54,10 +55,20 @@ class CmsPages
 
     public function getAllPages()
     {
+        $this->filterBuilder->setField('identifier');
+        $this->filterBuilder->setConditionType('neq');
+        $this->filterBuilder->setValue('no-route');
+        $this->searchCriteriaBuilder->addFilter([$this->filterBuilder->create()]);
+
         $searchCriteria = $this->searchCriteriaBuilder->create();
         $searchCriteria->setPageSize(10);
 
-        /** @var \Magento\Cms\Api\Data\PageInterface $pages */
         $pages = $this->pageRepository->getList($searchCriteria);
+
+        foreach ($pages->getItems() as $cmsPage) {
+            var_dump($cmsPage);
+        }
+
+        die();
     }
 }
