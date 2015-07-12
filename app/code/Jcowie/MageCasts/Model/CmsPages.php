@@ -39,6 +39,13 @@ class CmsPages
      */
     private $filterBuilder;
 
+    /**
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param PageRepositoryInterface $pageRepositoryInterface
+     * @param PageInterface $pageInterface
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param FilterBuilder $filterBuilder
+     */
     public function __construct(\Psr\Log\LoggerInterface $logger,
                                 PageRepositoryInterface $pageRepositoryInterface,
                                 PageInterface $pageInterface,
@@ -53,6 +60,9 @@ class CmsPages
         $this->filterBuilder = $filterBuilder;
     }
 
+    /**
+     * @return \Magento\Cms\Api\Data\PageInterface[]
+     */
     public function getAllPages()
     {
         $this->filterBuilder->setField('identifier');
@@ -61,14 +71,9 @@ class CmsPages
         $this->searchCriteriaBuilder->addFilter([$this->filterBuilder->create()]);
 
         $searchCriteria = $this->searchCriteriaBuilder->create();
-        $searchCriteria->setPageSize(10);
 
         $pages = $this->pageRepository->getList($searchCriteria);
 
-        foreach ($pages->getItems() as $cmsPage) {
-            var_dump($cmsPage);
-        }
-
-        die();
+        return $pages->getItems();
     }
 }
